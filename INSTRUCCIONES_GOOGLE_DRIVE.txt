@@ -1,0 +1,91 @@
+GUÍA PASO A PASO: CONECTAR EL FORMULARIO CON GOOGLE DRIVE
+==========================================================
+
+QUÉ HARÁ EL SISTEMA
+-------------------
+1. Cada vez que una familia envíe el formulario, Google Apps Script recibirá los datos.
+2. Guardará una fila en una hoja de cálculo de Google Sheets dentro del Google Drive
+   de la cuenta que configure el sistema.
+3. Enviará un correo de notificación a: 2021120488@lmh.edu.hn
+4. El personal de la institución revisará la solicitud y confirmará la cita por separado.
+
+PASO 1. CREAR EL SCRIPT
+-----------------------
+1. Inicie sesión en la cuenta de Google que la institución autorice para administrar
+   las solicitudes. Preferiblemente, una cuenta institucional.
+2. Abra https://script.google.com/
+3. Pulse "Nuevo proyecto".
+4. Abra el archivo Code.gs y borre el contenido de ejemplo.
+5. Abra el archivo Code.gs incluido en esta carpeta, copie todo y péguelo en el editor.
+6. Revise que ADMIN_EMAIL sea 2021120488@lmh.edu.hn. Si administración le asigna
+   otro correo, cambie esa dirección.
+
+PASO 2. CREAR LA HOJA DE DRIVE
+------------------------------
+1. En la parte superior, seleccione la función setup.
+2. Pulse Ejecutar.
+3. Google pedirá permisos. Revise la cuenta y autorice el acceso a Google Sheets/Drive
+   y el envío de correo.
+4. Si aparece una advertencia de aplicación no verificada en el proyecto propio, revise
+   que esté en el proyecto que usted creó y siga las opciones de autorización de Google.
+5. En el registro de ejecución (Execution log), busque la URL de la hoja creada.
+   También puede encontrarla en Google Drive con el nombre:
+   "Solicitudes de citas de admisión - Liceo Militar de Honduras".
+6. No comparta públicamente esa hoja. Dé acceso solo al personal autorizado.
+
+PASO 3. IMPLEMENTAR COMO APLICACIÓN WEB
+--------------------------------------
+1. En Google Apps Script pulse Implementar > Nueva implementación.
+2. En "Seleccionar tipo", elija "Aplicación web".
+3. Descripción: Sistema de citas LMH.
+4. "Ejecutar como": Yo (la cuenta que administra el script).
+5. "Quién tiene acceso": Cualquier persona, para que las familias puedan enviar el
+   formulario sin iniciar sesión. Esto hace público el punto de envío, no la hoja.
+6. Pulse Implementar y complete la autorización si se solicita.
+7. Copie la URL de aplicación web que termina en /exec. No use la URL de prueba /dev.
+
+PASO 4. CONECTAR EL FORMULARIO
+------------------------------
+1. Abra script.js en Visual Studio Code.
+2. Busque esta línea:
+   const GOOGLE_APPS_SCRIPT_URL = "PEGA_AQUI_LA_URL_DE_IMPLEMENTACION";
+3. Reemplace el texto PEGA_AQUI_LA_URL_DE_IMPLEMENTACION por la URL completa /exec,
+   manteniendo las comillas. Ejemplo de formato:
+   const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/ID_DE_IMPLEMENTACION/exec";
+   El ejemplo es solo ilustrativo: use la URL real que le entrega Google.
+4. Guarde el archivo.
+
+PASO 5. PROBAR
+--------------
+1. Abra el formulario desde un servidor o alojamiento web.
+2. Envíe una solicitud de prueba con datos de prueba, no con información real de un menor.
+3. Compruebe que se agregó una fila en la hoja de cálculo de Drive.
+4. Compruebe que llegó un correo a 2021120488@lmh.edu.hn.
+5. Si cambia el código de Apps Script, puede necesitar Implementar > Administrar
+   implementaciones > Editar > Nueva versión > Implementar.
+6. Si el formulario indica que se envió, confirme igualmente en la hoja y en el correo
+   que la solicitud se guardó. El navegador no puede leer la respuesta de Apps Script
+   por la restricción de seguridad del navegador.
+
+PASO 6. PUBLICAR EL SITIO WEB
+-----------------------------
+El formulario puede publicarse en un alojamiento estático (por ejemplo GitHub Pages)
+porque Google Apps Script procesa el envío. Suba index.html, estilos.css, script.js y
+la carpeta imagenes. No es necesario publicar Code.gs en el alojamiento web; ese código
+se queda en script.google.com.
+
+FOTOGRAFÍA Y COLORES
+--------------------
+Para usar su propia foto, copie el JPG dentro de la carpeta imagenes y llámelo:
+fondo-liceo.jpg
+Los tonos verdes ya están configurados en estilos.css.
+
+PRIVACIDAD Y SEGURIDAD
+----------------------
+- La hoja de Google Sheets debe permanecer restringida al personal autorizado.
+- No coloque contraseñas ni credenciales en el HTML o JavaScript.
+- Use solo los datos necesarios para gestionar la admisión y respete las reglas de
+  privacidad de la institución, especialmente por tratarse de información de menores.
+- "Cualquier persona" se usa para permitir que las familias envíen el formulario; no
+  significa que se deba compartir la hoja de cálculo públicamente.
+- El sistema no confirma citas automáticamente: la institución revisa y confirma.

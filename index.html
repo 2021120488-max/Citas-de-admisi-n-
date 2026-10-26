@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#14532d">
+  <title>Solicitud de cita | Liceo Militar de Honduras</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark" aria-hidden="true">LMH</div>
+    <div>
+      <p class="eyebrow">ADMISIONES</p>
+      <h1>Liceo Militar de Honduras</h1>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="intro">
+      <span class="pill">Sistema de solicitudes</span>
+      <h2>Solicitud de cita para examen de admisión</h2>
+      <p>Complete los datos del aspirante y de su encargado. La fecha solicitada queda pendiente de revisión y confirmación por parte de la institución.</p>
+    </section>
+
+    <section class="form-card">
+      <div class="form-heading">
+        <div>
+          <p class="eyebrow">FORMULARIO DIGITAL</p>
+          <h3>Datos del aspirante</h3>
+        </div>
+        <span class="required-note">* Campos obligatorios</span>
+      </div>
+
+      <div id="statusMessage" class="status-message" role="status" aria-live="polite" hidden></div>
+
+      <form id="appointmentForm">
+        <div class="section-label"><span>01</span> Información del aspirante</div>
+        <div class="form-grid">
+          <label class="full">Nombre completo del aspirante *
+            <input name="studentName" autocomplete="name" required maxlength="120" placeholder="Nombre y apellidos">
+          </label>
+          <label>Fecha de nacimiento *
+            <input type="date" name="birthDate" required>
+          </label>
+          <label>Colegio de procedencia *
+            <input name="previousSchool" required maxlength="160" placeholder="Nombre del colegio">
+          </label>
+          <label>Área académica *
+            <select name="academicArea" id="academicArea" required>
+              <option value="">Seleccione un área</option>
+              <option value="Español">Español</option>
+              <option value="Bilingüe">Bilingüe</option>
+              <option value="Informática (BTPi)">Informática (BTPi)</option>
+            </select>
+          </label>
+          <label>Grado al que desea ingresar *
+            <select name="grade" id="grade" required disabled>
+              <option value="">Primero seleccione el área</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="section-label"><span>02</span> Datos del padre, madre o encargado legal</div>
+        <div class="form-grid">
+          <label class="full">Nombre completo del encargado legal *
+            <input name="guardianName" required maxlength="120" placeholder="Nombre y apellidos">
+          </label>
+          <label>Teléfono de contacto *
+            <input name="guardianPhone" type="tel" autocomplete="tel" required maxlength="30" placeholder="Número de teléfono">
+          </label>
+          <label>Correo electrónico del encargado *
+            <input name="guardianEmail" type="email" autocomplete="email" required maxlength="160" placeholder="correo@ejemplo.com">
+          </label>
+          <label class="full">Dirección exacta de residencia *
+            <textarea name="address" required maxlength="500" rows="3" placeholder="Barrio o colonia, municipio, departamento y referencias"></textarea>
+          </label>
+        </div>
+
+        <div class="section-label"><span>03</span> Preferencia de cita</div>
+        <div class="form-grid">
+          <label>Fecha preferida para el examen *
+            <input type="date" name="preferredDate" id="preferredDate" required>
+          </label>
+          <label>Hora preferida *
+            <select name="preferredTime" required>
+              <option value="">Seleccione una hora</option>
+              <option>08:00 a. m.</option>
+              <option>09:00 a. m.</option>
+              <option>10:00 a. m.</option>
+              <option>11:00 a. m.</option>
+              <option>01:00 p. m.</option>
+              <option>02:00 p. m.</option>
+            </select>
+          </label>
+          <label class="full">Observaciones (opcional)
+            <textarea name="observations" maxlength="1000" rows="3" placeholder="Información adicional que la institución deba conocer"></textarea>
+          </label>
+        </div>
+
+        <label class="privacy-check">
+          <input type="checkbox" name="privacyConsent" required>
+          <span>Confirmo que la información proporcionada es correcta y autorizo su uso para gestionar esta solicitud de admisión. *</span>
+        </label>
+
+        <button type="submit" id="submitButton">
+          <span>Enviar solicitud</span><span aria-hidden="true">→</span>
+        </button>
+        <p class="form-footnote">El envío de este formulario no confirma la cita. La institución deberá revisar la solicitud y comunicar la confirmación.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <span>Liceo Militar de Honduras</span>
+    <span>Solicitud digital de admisión</span>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
